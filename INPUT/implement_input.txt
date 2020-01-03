@@ -1,0 +1,8 @@
+choice = 25
+    Enter file location :
+    C:\Users\trush\OneDrive\Desktop\pure_gujarati_corpus\Created\civil.txt
+
+    Enter file directory to save file :
+    C:\Users\trush\OneDrive\Desktop\pure_gujarati_corpus\Transformed
+
+    Enter file name to save file :civil_transformed
