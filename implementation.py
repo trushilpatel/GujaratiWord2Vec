@@ -1,7 +1,5 @@
-import Train_Model
-import Visualize
-import Generate_Replace_words_file
-import utility
+from utils import Visualize, utility, Train_Model
+from pure_Gujarati import Generate_Replace_words_file
 
 print("\n1.  Skip Gram base Train Model "
       "\n2.  CBOW based Train Model "
@@ -78,6 +76,7 @@ while choice != 0:
             else:
                 Visualize.TSNE_based_visualization(model=model, method=method, perplexity=perplexity,
                                                    learning_rate=learning_rate, n_iter=n_iter)
+
     elif choice == 5:  # PCA based visualization
         if loaded_model == 0:
             print("First Load model")

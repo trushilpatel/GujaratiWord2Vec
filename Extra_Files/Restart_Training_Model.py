@@ -3,14 +3,12 @@
 from nltk.tokenize import sent_tokenize, word_tokenize
 import warnings
 import gensim
-from typing import TextIO
-from nltk.corpus import state_union
 from gensim.models import Word2Vec
 
 warnings.filterwarnings(action='ignore')
 
 # from User Defined python file
-from Visualize import TSNE_based_visualization, PCA_based_visualization, create_CSV_file
+from utils.Visualize import PCA_based_visualization
 
 
 def skip_gram_model_restart_training(data_file, model, model_name, start_line, end_line):
