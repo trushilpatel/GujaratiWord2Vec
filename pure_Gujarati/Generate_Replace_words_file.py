@@ -1,3 +1,6 @@
+from os import listdir
+from os.path import join, isfile
+
 from pure_Gujarati.Words_Combination_Generator import factorial_word_selection
 
 
@@ -62,10 +65,17 @@ def dollar_hashtag(replace_list, statement_list):
     return final_replace_list, final_statement_list
 
 
+def directory_transform(dir_loc, save_dir_loc):
+    allfiles = {f: join(dir_loc, f) for f in listdir(dir_loc) if isfile(join(dir_loc, f))}
+    for file_name in allfiles:
+        file_transform(allfiles[file_name], save_dir_loc, 'tra_' + file_name)
+
+
 def file_transform(file_loc, save_file_loc, save_file_name):
     file = open(file_loc, 'rt', encoding="UTF-8")
     print()
     le = len(file.readlines())
+    print(save_file_name, "\n", '-' * 40)
     print("Total lines before Transformation : ", le)
     file.seek(0, 0)
 
@@ -92,7 +102,6 @@ def file_transform(file_loc, save_file_loc, save_file_name):
 
     write_replace_word_file(save_file_loc, save_file_name, final_replace_list, final_statement_list)
 
-    file = open(save_file_loc + "\\" + save_file_name + ".txt", 'rt', encoding="UTF-8")
-    print()
+    file = open(save_file_loc + "\\" + save_file_name , 'rt', encoding="UTF-8")
     le = len(file.readlines())
     print("Total lines After Transformation : ", le)

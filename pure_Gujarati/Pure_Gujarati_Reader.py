@@ -36,8 +36,7 @@ def pure_gujarati_need_for_data(file_loc, string_based=0, lines=None):
             if L[i] is not "":
                 final_list.append(L[i].split())
 
-    for i in final_list:
-        print("final list : ", i)
+
 
 pure_gujarati_need_for_data(r"C:\Users\trush\OneDrive\Desktop\pure_gujarati_corpus\Transformed\civil_transformed.txt",
                            string_based=1)

@@ -1,0 +1,15 @@
+College Dataset:
+D:\MY\GIT\GujaratiStemming\corpus\dataSet\college_data.txt
+
+Save Model Directory:
+D:\MY\GIT\GujaratiWord2Vec\TrainedModels
+
+
+implementation:
+    1:
+        dataset file location : D:\MY\GIT\GujaratiWord2Vec\pure_Gujarati\pure_gujarati_corpus\Transformed\tra_combined.txt
+        model name to save :
+        save model dir : D:\MY\GIT\GujaratiWord2Vec\pure_Gujarati\pure_gujarati_corpus\Transformed_model
+    25:
+        dir_loc: D:\MY\GIT\GujaratiWord2Vec\pure_Gujarati\pure_gujarati_corpus\written_txt_files
+        save_dir_loc: D:\MY\GIT\GujaratiWord2Vec\pure_Gujarati\pure_gujarati_corpus\written_txt_files

@@ -1,5 +1,5 @@
-from utils import Visualize, utility, Train_Model
 from pure_Gujarati import Generate_Replace_words_file
+from utils import Visualize, utility, Train_Model
 
 print("\n1.  Skip Gram base Train Model "
       "\n2.  CBOW based Train Model "
@@ -12,7 +12,7 @@ print("\n1.  Skip Gram base Train Model "
       "\n9.  Save Vocabulary"
       "\n10. vocabulary size "
       "\n11. Most Similar"
-      "\n25. Pure Gujarati LOL"
+      "\n25. College Dataset"
       "\n0.  Exit")
 
 print("*" * 80)
@@ -27,7 +27,7 @@ while choice != 0:
         dataset_file_loc = input("Enter dataset file location : ")
         model_name = input("Enter model name to save model : ")
         file_dir_to_save = input("Enter file directory to save model : ")
-        string_based = int(input("Want to insert string instead of file [ 0 for NO, 1 for Yes ] : "))
+        string_based = 0  # int(input("Want to insert string instead of file [ 0 for NO, 1 for Yes ] : "))
         pure_gujarati = int(input("file is Pure Gujarati file [ 0 for NO, 1 for Yes ] : "))
         hs = int(input("0 for non-zero, negative sampling and 1 for hierarchical softmax : "))
 
@@ -39,13 +39,13 @@ while choice != 0:
         dataset_file_loc = input("Enter dataset file location : ")
         model_name = input("Enter model name to save model : ")
         file_dir_to_save = input("Enter file directory to save model : ")
-        string_based = int(input("Want to insert string instead of file [ 0 for NO, 1 for Yes ] : "))
+        string_based = 0  # int(input("Want to insert string instead of file [ 0 for NO, 1 for Yes ] : "))
         hs = int(input("0 for non-zero, negative sampling and 1 for hierarchical softmax : "))
         pure_gujarati = int(input("file is Pure Gujarati file [ 0 for NO, 1 for Yes ] : "))
 
         Train_Model.cbow(dataset_file_loc=dataset_file_loc, model_name=model_name,
                          file_dir_to_save=file_dir_to_save, string_based=string_based, hs=hs,
-                         pure_gujarati = pure_gujarati)
+                         pure_gujarati=pure_gujarati)
 
     elif choice == 3:  # Load Model
         file_loc = input("Enter location of file : ")
@@ -140,11 +140,9 @@ while choice != 0:
             utility.most_similar(model=model, word=word)
 
     elif choice == 25:  # pure Gujarati user data
-        file_loc = input("Enter file location : ")
-        save_file_loc = input("Enter file directory to save file : ")
-        save_file_name = input("Enter file name to save file :")
-        Generate_Replace_words_file.file_transform(file_loc=file_loc, save_file_loc=save_file_loc,
-                                                   save_file_name=save_file_name)
+        dir_loc = input("Enter directory location of files : ")
+        save_dir_loc = input("Enter file directory to save file : ")
+        Generate_Replace_words_file.directory_transform(dir_loc=dir_loc, save_dir_loc=save_dir_loc)
 
     else:
         print("Enter valid choice")

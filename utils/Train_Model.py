@@ -1,12 +1,16 @@
 # Python program to generate word vectors using Word2Vec
-
-from nltk.tokenize import sent_tokenize, word_tokenize
+# Bring your packages onto the path
+from tokenizer import Tokenizer
 import warnings
 import gensim
+from stopWords import stop_words
+from suffix import suffixRemovall
 
 warnings.filterwarnings(action='ignore')
 
+
 # DONE
+# now this is wastage
 def gujarati_line_with_quote(line):
     """
 
@@ -28,12 +32,11 @@ def gujarati_line_with_quote(line):
                 temp = line[index:i].strip()
 
                 if temp is not '':
-                    final_list.append(temp)
+                    final_list.append(temp + '*')
                 quotes = 0
             else:
                 temp = line[index:i].split()
                 for j in temp:
-                    j_temp = j.strip()
                     if temp is not '':
                         final_list.append(j)
             index = i + 1
@@ -46,6 +49,7 @@ def gujarati_line_with_quote(line):
 
 
 # DONE
+# now this is wastage
 def pure_gujarati_need_for_data(dataset_file_loc, string_based=0, lines=None):
     """
     if we are using pure_gujarati ( manually generated files ) then these function is helpful
@@ -71,10 +75,27 @@ def pure_gujarati_need_for_data(dataset_file_loc, string_based=0, lines=None):
         else:
             if L[i] is not "":
                 final_list.append(L[i].split())
+    print("Total sentence Used", len(final_list))
+
+    stopWords = stop_words.StopWords()
+    final_list = stopWords.sw_remove(final_list)
+
+    sr = suffixRemovall.SuffixRemoval()
+    for sentence_words_index in range(len(final_list)):
+        for word_index in range(len(final_list[sentence_words_index])):
+            if final_list[sentence_words_index][word_index].count('*') > 0:
+                final_list[sentence_words_index][word_index] = final_list[sentence_words_index][word_index].strip('*')
+                print(final_list[sentence_words_index][word_index])
+                continue
+            final_list[sentence_words_index][word_index] = sr.suffixRemoval(
+                final_list[sentence_words_index][word_index]).get(
+                'word')
+
     return final_list
 
 
 # DONE
+# now this is wastage
 def need_for_data_sample(file_loc, string_based, lines=None):
     """
 
@@ -108,6 +129,28 @@ def need_for_data_sample(file_loc, string_based, lines=None):
     return sample, lines
 
 
+def dataCleaning(file_loc):
+    tokenizer = Tokenizer()
+    tokenized_sentences = tokenizer.sentenceTokenizer(file=file_loc)
+    tokenized_words = tokenizer.wordTokenizer(tokenized_sentences)
+    total_words = 0
+    del tokenizer
+    del tokenized_sentences
+    stopWords = stop_words.StopWords()
+    data = stopWords.sw_remove(tokenized_words)
+
+    del tokenized_words
+
+    sr = suffixRemovall.SuffixRemoval()
+    for sentence_words_index in range(len(data)):
+        for word_index in range(len(data[sentence_words_index])):
+            data[sentence_words_index][word_index] = sr.suffixRemoval(data[sentence_words_index][word_index]).get(
+                'word')
+            total_words += 1
+
+    return data
+
+
 # DONE
 def need_for_data(file_loc, string_based, lines=None):
     """
@@ -123,22 +166,13 @@ def need_for_data(file_loc, string_based, lines=None):
         Ex. [['a','b','b'],[...]]
     """
     sample, lines = need_for_data_sample(file_loc, string_based, lines=lines)
-    f = sample.replace("\n", " ")  # Replaces escape character with space
-    data = []
-    total_words = int()
-
-    for i in sent_tokenize(f):  # iterate through each sentence in the file
-        temp = []
-        for j in word_tokenize(i):  # tokenize the sentence into words
-            temp.append(j.lower())
-        data.append(temp)
-        total_words += len(temp)
 
     # find total numbers of line in file
     file = open(file_loc, 'rt', encoding="UTF-8")
     print("\nTotal No of Lines in FILE :", (len(file.readlines())))
     print("Total No of Lines used for training model :", lines)
     print("Total No of words used for training model :", total_words)
+    file.close()
     return data
 
 
@@ -214,5 +248,10 @@ def cbow(dataset_file_loc, model_name, file_dir_to_save, string_based=0, lines=N
     print("CBOW MODEL saved successfully...")
     print("At location :" + file_dir_to_save + "\\" + model_name)
 
+
 # pure_gujarati_need_for_data(r"C:\Users\trush\OneDrive\Desktop\pure_gujarati_corpus\Transformed\civil_transformed.txt",
 #                           string_based=1)
+
+
+if __name__ == "__main__":
+    need_for_data('../../GujaratiStemming/corpus/dataSet/college_data.txt', string_based=None)
